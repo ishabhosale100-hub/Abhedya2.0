@@ -1,68 +1,349 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
+/* ============ DESIGN TOKENS (Sanctuary Humanist) ============ */
+@theme {
+  --font-sans: 'Plus Jakarta Sans', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Slate scale is INVERTED on purpose: old dark classes (bg-slate-900, text-slate-100)
+     now render as light surfaces and dark ink, so no JSX edits are needed. */
+  --color-slate-50:  #2B2627;
+  --color-slate-100: #2B2627;
+  --color-slate-200: #3A3234;
+  --color-slate-300: #5E5053;
+  --color-slate-400: #7D6E71;
+  --color-slate-500: #9C8D90;
+  --color-slate-600: #D9C3BF;
+  --color-slate-700: #EBD3CF;
+  --color-slate-800: #F4E4E1;
+  --color-slate-900: #FBF1EF;
+  --color-slate-950: #FFF8F6;
+
+  /* Cyan -> terracotta (primary) */
+  --color-cyan-50:  #FDF1EE;
+  --color-cyan-100: #FADDD5;
+  --color-cyan-200: #F5C2B5;
+  --color-cyan-300: #EFA391;
+  --color-cyan-400: #E5846C;
+  --color-cyan-500: #D96B52;
+  --color-cyan-600: #B5472F;
+  --color-cyan-700: #93361F;
+  --color-cyan-800: #6E2916;
+  --color-cyan-900: #4A1C10;
+
+  /* Emerald (safe) -> warm olive-gold */
+  --color-emerald-100: #F3EFD2;
+  --color-emerald-300: #CDBF6B;
+  --color-emerald-400: #AD9B3F;
+  --color-emerald-500: #8C7A2B;
+  --color-emerald-600: #6F6022;
+  --color-emerald-700: #54481A;
+
+  /* Amber (medium) -> marigold */
+  --color-amber-100: #FCEBCB;
+  --color-amber-300: #F3C26E;
+  --color-amber-400: #EBAE45;
+  --color-amber-500: #E8A33D;
+  --color-amber-600: #C98425;
+  --color-amber-700: #9C6416;
+
+  /* Rose / red (danger) -> deep red */
+  --color-rose-100: #F8D9D6;
+  --color-rose-300: #E58A85;
+  --color-rose-400: #D4564F;
+  --color-rose-500: #C23B35;
+  --color-rose-600: #B3261E;
+  --color-rose-700: #8C1D17;
+
+  /* Any leftover blue/violet/teal -> plum / terracotta family (no blue anywhere) */
+  --color-sky-400: #9A6B80;    --color-sky-500: #7E5265;    --color-sky-600: #66404F;
+  --color-blue-400: #9A6B80;   --color-blue-500: #7E5265;   --color-blue-600: #66404F;
+  --color-indigo-400: #9A6B80; --color-indigo-500: #7E5265; --color-indigo-600: #66404F;
+  --color-violet-400: #9A6B80; --color-violet-500: #7E5265; --color-violet-600: #66404F;
+  --color-purple-400: #9A6B80; --color-purple-500: #7E5265; --color-purple-600: #66404F;
+  --color-teal-400: #E5846C;   --color-teal-500: #D96B52;   --color-teal-600: #B5472F;
+  --color-green-400: #AD9B3F;  --color-green-500: #8C7A2B;  --color-green-600: #6F6022;
+}
+
+:root {
+--abh-card: #F59A72;
+  --abh-card-hover: #F08A5D;
+  --abh-card-text: #2B1810;
+  --abh-card-text-soft: #4A2C22;
+  --abh-accent-on-card: #7A2E1A;
+  
+}
+
+/* ============ BASE ============ */
 @layer base {
-  :root {
-    --font-sans: 'Inter', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
     font-family: var(--font-sans);
-    background-color: #080c14;
-    color: #f1f5f9;
+    background-color: var(--abh-bg);
+    color: var(--abh-ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.55;
+  }
+
+  h1, h2, h3, h4 { letter-spacing: -0.01em; font-weight: 700; }
+
+  ::selection { background: var(--abh-tertiary); color: var(--abh-ink); }
+
+  /* Visible, friendly focus ring for accessibility */
+  :focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--abh-primary) 55%, transparent);
+    outline-offset: 2px;
+    border-radius: 10px;
+  }
+
+  input, textarea, select {
+    background-color: var(--abh-surface-2);
+    color: var(--abh-ink);
+    border: 1px solid var(--abh-border);
+    border-radius: 14px;
+    transition: border-color .2s, box-shadow .2s, background-color .2s;
+  }
+  input::placeholder, textarea::placeholder { color: #A8979A; }
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--abh-primary);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--abh-primary) 18%, transparent);
+    background-color: #fff;
   }
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #0b0f19;
-}
-::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #334155;
-}
+/* ============ SCROLLBAR ============ */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--abh-bg); }
+::-webkit-scrollbar-thumb { background: #DDBFBA; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--abh-primary); }
 
-/* Glassmorphism utility classes matching high-end digital safety dashboard */
+/* ============ CARDS (same class names as before, new look) ============ */
 .glass-panel {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(51, 65, 85, 0.6);
+  background: var(--abh-surface);
+  border: 1px solid var(--abh-border);
+  border-radius: var(--abh-radius);
+  box-shadow: 0 1px 2px rgba(43, 38, 39, .04), 0 8px 24px -12px rgba(126, 82, 101, .18);
 }
 
 .glass-panel-interactive {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(51, 65, 85, 0.6);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--abh-surface);
+  border: 1px solid var(--abh-border);
+  border-radius: var(--abh-radius);
+  box-shadow: 0 1px 2px rgba(43, 38, 39, .04), 0 8px 24px -12px rgba(126, 82, 101, .18);
+  transition: transform .3s var(--abh-ease), box-shadow .3s var(--abh-ease), border-color .3s;
+  cursor: pointer;
 }
-
 .glass-panel-interactive:hover {
-  border-color: rgba(6, 182, 212, 0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px -10px rgba(6, 182, 212, 0.15);
+  border-color: var(--abh-primary);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px -14px rgba(217, 107, 82, .35);
+}
+.glass-panel-interactive:active { transform: translateY(-1px) scale(.99); }
+
+/* Old "glow" helpers become soft colored shadows */
+.glow-cyan    { box-shadow: 0 10px 28px -10px rgba(217, 107, 82, .40); }
+.glow-emerald { box-shadow: 0 10px 28px -10px rgba(140, 122, 43, .35); }
+.glow-amber   { box-shadow: 0 10px 28px -10px rgba(232, 163, 61, .40); }
+.glow-rose    { box-shadow: 0 10px 28px -10px rgba(179, 38, 30, .35); }
+
+/* ============ OPTIONAL HELPERS (use only if you want, none are required) ============ */
+.btn-primary {
+  background: var(--abh-primary-strong); color: #fff; font-weight: 600;
+  padding: .8rem 1.4rem; border-radius: 999px;
+  box-shadow: 0 10px 22px -10px rgba(181, 71, 47, .6);
+  transition: transform .2s var(--abh-ease), background .2s, box-shadow .2s;
+}
+.btn-primary:hover { background: #9B3A24; transform: translateY(-2px); }
+.btn-primary:active { transform: translateY(0) scale(.98); }
+
+.btn-secondary {
+  background: var(--abh-secondary); color: #fff; font-weight: 600;
+  padding: .8rem 1.4rem; border-radius: 999px;
+  transition: transform .2s var(--abh-ease), filter .2s;
+}
+.btn-secondary:hover { filter: brightness(1.08); transform: translateY(-2px); }
+
+.chip {
+  display: inline-flex; align-items: center; gap: .35rem;
+  background: #FBE3E0; color: var(--abh-primary-strong);
+  border-radius: 999px; padding: .2rem .7rem;
+  font-size: .75rem; font-weight: 600;
 }
 
-.glow-cyan {
-  box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.3);
+/* ============ ANIMATIONS ============ */
+@keyframes abh-fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes abh-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes abh-pop {
+  0% { opacity: 0; transform: scale(.92); }
+  60% { transform: scale(1.03); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes abh-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes abh-pulse-soft {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(217, 107, 82, .35); }
+  50% { box-shadow: 0 0 0 10px rgba(217, 107, 82, 0); }
+}
+@keyframes abh-slide-in { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
+
+.animate-fade-up  { animation: abh-fade-up .6s var(--abh-ease) both; }
+.animate-fade-in  { animation: abh-fade-in .5s ease both; }
+.animate-pop      { animation: abh-pop .5s var(--abh-ease) both; }
+.animate-float    { animation: abh-float 5s ease-in-out infinite; }
+.animate-pulse-soft { animation: abh-pulse-soft 2.4s ease-in-out infinite; }
+.animate-slide-in { animation: abh-slide-in .4s var(--abh-ease) both; }
+
+/* Staggered children: add class "stagger" on a parent */
+.stagger > * { animation: abh-fade-up .6s var(--abh-ease) both; }
+.stagger > *:nth-child(1) { animation-delay: .05s; }
+.stagger > *:nth-child(2) { animation-delay: .12s; }
+.stagger > *:nth-child(3) { animation-delay: .19s; }
+.stagger > *:nth-child(4) { animation-delay: .26s; }
+.stagger > *:nth-child(5) { animation-delay: .33s; }
+.stagger > *:nth-child(6) { animation-delay: .40s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* ================= PATCH: orange cards + no black background ================= */
+
+/* Kill any hard-coded dark page/wrapper backgrounds */
+html, body, #root {
+  background-color: var(--abh-bg) !important;
+  color: var(--abh-ink);
+}
+.bg-black,
+[class*="bg-[#0"],
+[class*="bg-[#1"],
+[class*="bg-[rgb(0"],
+[class*="bg-[rgb(8"],
+[class*="bg-[rgb(1"] {
+  background-color: var(--abh-bg) !important;
+}
+/* Remove leftover dark gradient overlays */
+[class*="from-slate-9"], [class*="via-slate-9"], [class*="to-slate-9"],
+[class*="from-[#0"], [class*="to-[#0"], [class*="via-[#0"] {
+  --tw-gradient-from: transparent !important;
+  --tw-gradient-via: transparent !important;
+  --tw-gradient-to: transparent !important;
 }
 
-.glow-emerald {
-  box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
+/* Orange cards */
+.glass-panel,
+.glass-panel-interactive {
+  background: var(--abh-card);
+  border: 1px solid #A8431F;
+  color: var(--abh-card-text);
+  box-shadow: 0 14px 30px -14px rgba(173, 67, 31, .55);
+}
+.glass-panel-interactive:hover {
+  background: var(--abh-card-hover);
+  border-color: #8C3515;
+  box-shadow: 0 20px 38px -14px rgba(140, 53, 21, .6);
 }
 
-.glow-amber {
-  box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.25);
+/* Text inside orange cards: always light and readable */
+.glass-panel :is(h1,h2,h3,h4,h5,h6),
+.glass-panel-interactive :is(h1,h2,h3,h4,h5,h6),
+.glass-panel :is(.text-slate-50,.text-slate-100,.text-slate-200,.text-slate-300,.text-white),
+.glass-panel-interactive :is(.text-slate-50,.text-slate-100,.text-slate-200,.text-slate-300,.text-white) {
+  color: var(--abh-card-text);
+}
+.glass-panel :is(p,.text-slate-400,.text-slate-500,.text-slate-600),
+.glass-panel-interactive :is(p,.text-slate-400,.text-slate-500,.text-slate-600) {
+  color: var(--abh-card-text-soft);
+}
+/* Orange accent text would vanish on orange, so use marigold on cards */
+.glass-panel :is(.text-cyan-300,.text-cyan-400,.text-cyan-500,.text-cyan-600),
+.glass-panel-interactive :is(.text-cyan-300,.text-cyan-400,.text-cyan-500,.text-cyan-600) {
+  color: var(--abh-accent-on-card);
+}
+.glass-panel hr, .glass-panel .border-t,
+.glass-panel-interactive hr, .glass-panel-interactive .border-t {
+  border-color: rgba(255, 248, 246, .28);
 }
 
-.glow-rose {
-  box-shadow: 0 0 25px -5px rgba(244, 63, 94, 0.25);
+/* Light chips / icon boxes / inputs inside cards keep dark text */
+.glass-panel :is([class*="bg-slate-7"],[class*="bg-slate-8"],[class*="bg-slate-9"],[class*="bg-slate-950"]),
+.glass-panel-interactive :is([class*="bg-slate-7"],[class*="bg-slate-8"],[class*="bg-slate-9"],[class*="bg-slate-950"]) {
+  color: var(--abh-ink);
+}
+.glass-panel :is([class*="bg-slate-7"],[class*="bg-slate-8"],[class*="bg-slate-9"],[class*="bg-slate-950"]) *,
+.glass-panel-interactive :is([class*="bg-slate-7"],[class*="bg-slate-8"],[class*="bg-slate-9"],[class*="bg-slate-950"]) * {
+  color: inherit;
+}
+.glass-panel :is([class*="bg-slate-7"],[class*="bg-slate-8"],[class*="bg-slate-9"]) :is(.text-cyan-400,.text-cyan-500,.text-cyan-600),
+.glass-panel-interactive :is([class*="bg-slate-7"],[class*="bg-slate-8"],[class*="bg-slate-9"]) :is(.text-cyan-400,.text-cyan-500,.text-cyan-600) {
+  color: var(--abh-primary-strong);
+}
+
+/* Text directly on the blush page: dark and readable */
+main, section { color: var(--abh-ink); }
+
+/* Privacy / info banners on the page (translucent slate boxes outside cards) */
+:not(.glass-panel):not(.glass-panel-interactive) > [class*="bg-slate-8"][class*="/"],
+:not(.glass-panel):not(.glass-panel-interactive) > [class*="bg-slate-9"][class*="/"] {
+  background-color: #FBE3DC !important;
+  border-color: #E8B4A6 !important;
+  color: var(--abh-ink) !important;
+}
+:not(.glass-panel):not(.glass-panel-interactive) > [class*="bg-slate-8"][class*="/"] *,
+:not(.glass-panel):not(.glass-panel-interactive) > [class*="bg-slate-9"][class*="/"] * {
+  color: var(--abh-ink-soft) !important;
+}
+/* ================= PATCH 2: lighter orange cards, dark readable text ================= */
+.glass-panel,
+.glass-panel-interactive {
+  background: var(--abh-card);
+  border: 1px solid #E9835A;
+  border-radius: 20px;
+  color: var(--abh-card-text);
+  box-shadow: 0 12px 26px -14px rgba(217, 107, 82, .5);
+}
+.glass-panel-interactive:hover {
+  background: var(--abh-card-hover);
+  border-color: #D96B52;
+  box-shadow: 0 18px 34px -14px rgba(217, 107, 82, .6);
+}
+
+/* Titles, numbers and labels on the card */
+.glass-panel :is(h1,h2,h3,h4,h5,h6,span,a,button,div),
+.glass-panel-interactive :is(h1,h2,h3,h4,h5,h6,span,a,button,div) {
+  color: var(--abh-card-text);
+}
+/* Descriptions */
+.glass-panel p,
+.glass-panel-interactive p,
+.glass-panel :is(.text-slate-400,.text-slate-500,.text-slate-600),
+.glass-panel-interactive :is(.text-slate-400,.text-slate-500,.text-slate-600) {
+  color: var(--abh-card-text-soft);
+}
+/* Accent text */
+.glass-panel :is(.text-cyan-300,.text-cyan-400,.text-cyan-500,.text-cyan-600),
+.glass-panel-interactive :is(.text-cyan-300,.text-cyan-400,.text-cyan-500,.text-cyan-600) {
+  color: var(--abh-accent-on-card);
+}
+/* Divider line above "Enter Workspace" */
+.glass-panel hr, .glass-panel .border-t,
+.glass-panel-interactive hr, .glass-panel-interactive .border-t {
+  border-color: rgba(43, 24, 16, .18);
+}
+/* Icon box stays light so the icon pops */
+.glass-panel-interactive [class*="bg-slate-"],
+.glass-panel [class*="bg-slate-"] {
+  background-color: #FFF3EC;
 }
