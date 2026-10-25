@@ -1,0 +1,339 @@
+{
+  "brand": {
+    "name": "ABHEDYA",
+    "tagline": "Protect. Prove. Prevail.",
+    "role": "Digital Safety & Evidence Preservation Workspace"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "back": "Back to Dashboard",
+    "backToFeatures": "Back",
+    "logout": "Sign Out",
+    "language": "Language",
+    "demoBadge": "Prototype Workspace"
+  },
+  "splash": {
+    "getStarted": "Get Started"
+  },
+  "login": {
+    "title": "Access Workspace",
+    "subtitle": "Sign in to your private ABHEDYA environment",
+    "username": "Username or Creator ID",
+    "usernamePlaceholder": "e.g. creator_priya",
+    "password": "Password",
+    "passwordPlaceholder": "Enter password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "signInButton": "Enter ABHEDYA",
+    "demoNotice": "Demo authentication for prototype: use any credentials or click Quick Demo Sign In.",
+    "quickDemo": "Quick Demo Sign In",
+    "demoRegister": "Create Demo Account",
+    "regSuccess": "Demo account initialized. You can now enter.",
+    "languageSelect": "Select Workspace Language"
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "status": "Private Mode Active",
+    "overview": "Select a digital safety workspace below. All processing is strictly local or in-memory unless explicitly saved to your Evidence Vault.",
+    "featureCardsTitle": "Primary Safety Modules",
+    "scoreWidgetTitle": "Creator Safety Score",
+    "scoreWidgetSubtitle": "Composite indicator based on recorded activity",
+    "viewScoreDetails": "View Risk Factor Analysis",
+    "cards": {
+      "watermark": {
+        "title": "Photo Watermarking",
+        "description": "Embed visible and reversible invisible ownership identifiers into images with SHA-256 cryptographic proof."
+      },
+      "comparison": {
+        "title": "Photo Comparison",
+        "description": "Perform forensic pixel-by-pixel difference analysis, SSIM similarity calculation, and tamper heatmap visualization."
+      },
+      "comments": {
+        "title": "Comment Safety",
+        "description": "Analyze incoming comments for abusive speech, threats, harassment, and personal information exposure."
+      },
+      "casting": {
+        "title": "Casting Shield",
+        "description": "Screen audition scripts, opportunities, and messages for coercion, secrecy pressure, and suspicious demands."
+      },
+      "vault": {
+        "title": "Evidence Vault",
+        "description": "Centrally manage saved cryptographic hashes, findings, and generate verifiable multilingual PDF incident reports."
+      }
+    }
+  },
+  "safetyScore": {
+    "title": "Creator Safety Score Detail",
+    "scoreLabel": "Risk Index",
+    "band": {
+      "low": "Low Risk Recorded",
+      "moderate": "Moderate Risk Recorded",
+      "high": "High Risk Recorded",
+      "severe": "Severe Risk Recorded"
+    },
+    "factors": {
+      "comments": "Harmful Comments & Harassment",
+      "threats": "Direct Threats & PII Exposure",
+      "comparison": "Suspicious Image Alteration Signals",
+      "recency": "Recent Incident Temporal Weight"
+    },
+    "weightsNotice": "Configurable scoring weights: Comments (35%), Threats/PII (30%), Image Comparison (20%), Recency (15%). Max 100.",
+    "disclaimer": "This is an internal indicator based solely on activity recorded in ABHEDYA, not an objective measurement of your actual safety. Missing data does not imply danger, and a low score does not guarantee absolute safety.",
+    "noData": "No incidents or safety signals recorded yet. Your current indicator is at baseline.",
+    "supportingRecords": "Supporting Evidence Records",
+    "viewInVault": "Inspect in Evidence Vault"
+  },
+  "watermark": {
+    "title": "Photo Watermarking Workspace",
+    "subtitle": "Client-side image protection, ownership verification, and cryptographic fingerprinting",
+    "uploadPrompt": "Drop your image here, or browse files",
+    "uploadHelp": "Supports JPG, JPEG, PNG, WebP up to 10 MB. Processed entirely in your browser.",
+    "replaceImage": "Replace Image",
+    "removeImage": "Remove Image",
+    "mode": "Watermark Mode",
+    "modes": {
+      "visible": "Visible Watermark",
+      "invisible": "Invisible Watermark (LSB)",
+      "both": "Visible & Invisible Both"
+    },
+    "visibleSettings": "Visible Watermark Configuration",
+    "textLabel": "Watermark Text",
+    "textColor": "Text Color",
+    "opacity": "Opacity",
+    "fontSize": "Font Size",
+    "rotation": "Rotation",
+    "positionPreset": "Placement Preset",
+    "positions": {
+      "center": "Center",
+      "topLeft": "Top-Left",
+      "topRight": "Top-Right",
+      "bottomLeft": "Bottom-Left",
+      "bottomRight": "Bottom-Right",
+      "tiled": "Tiled Repeating"
+    },
+    "protectionRegion": "Protection Region Preset",
+    "regions": {
+      "none": "Full Image Preset",
+      "face": "Face Region (Manual Guide)",
+      "chest": "Chest Region (Manual Guide)",
+      "lowerBody": "Lower Body Region (Manual Guide)",
+      "custom": "Custom Placed Region"
+    },
+    "regionDisclaimer": "Protection regions are manual positioning guides to assist placement; ABHEDYA does not perform automated body-part classification.",
+    "invisibleSettings": "Invisible Ownership Payload",
+    "payloadLabel": "Owner ID / Cryptographic Token",
+    "payloadHelp": "Lightweight reversible spatial LSB encoder. Note: heavy compression, format conversion, or resizing can degrade invisible payloads.",
+    "extractButton": "Verify / Extract Invisible Payload",
+    "extractedPayload": "Extracted Payload",
+    "applyButton": "Apply Watermark",
+    "processing": "Processing Image...",
+    "steps": {
+      "validating": "Validating image specifications...",
+      "preparing": "Preparing high-resolution canvas...",
+      "applying": "Applying requested watermarks...",
+      "preview": "Generating protected preview...",
+      "fingerprinting": "Calculating SHA-256 fingerprints...",
+      "ready": "Protection workflow complete."
+    },
+    "originalPreview": "Original Image",
+    "protectedPreview": "Protected Result",
+    "originalHash": "Original SHA-256",
+    "protectedHash": "Protected SHA-256",
+    "downloadButton": "Download Protected Image",
+    "saveVaultButton": "Save to Evidence Vault",
+    "savedSuccess": "Protection record saved to Evidence Vault successfully.",
+    "limitationNotice": "Important Limitation: Watermarks provide proof of ownership and deter misuse, but cannot mathematically guarantee prevention of unauthorized cropping or recompression."
+  },
+  "comparison": {
+    "title": "Photo Comparison & Tamper Analysis",
+    "subtitle": "Forensic pixel-difference calculation, SSIM metric, and difference region localization",
+    "originalPanel": "1. ORIGINAL / REFERENCE IMAGE",
+    "suspectedPanel": "2. SUSPECTED / ALTERED IMAGE",
+    "uploadHelp": "JPG, PNG, WebP up to 10 MB",
+    "runButton": "Run Forensic Comparison",
+    "processing": "Executing Forensic Analysis...",
+    "steps": {
+      "validating": "Validating image dimensions and channels...",
+      "hashing": "Generating independent SHA-256 digests...",
+      "checkingIdentical": "Evaluating exact cryptographic identity...",
+      "normalizing": "Aligning and normalizing comparison matrices...",
+      "pixelDiff": "Calculating absolute pixel difference...",
+      "ssim": "Computing Structural Similarity Index (SSIM)...",
+      "visualizing": "Generating heatmap and threshold contour masks...",
+      "complete": "Analysis completed successfully."
+    },
+    "resultsTitle": "Forensic Analysis Findings",
+    "metricPixelDiff": "Measured Pixel Difference",
+    "metricSSIM": "Structural Similarity (SSIM)",
+    "metricRegions": "Detected Difference Regions",
+    "viewModes": {
+      "sideBySide": "Side by Side",
+      "redOverlay": "Red Difference Overlay",
+      "heatmap": "Thermal Heatmap",
+      "diffMask": "Threshold Mask"
+    },
+    "interpretation": {
+      "identical": "Exact Cryptographic Match: The two files have identical SHA-256 fingerprints (0.00% difference).",
+      "pixelIdentical": "Pixel Identical: Images share identical pixel values across all color channels.",
+      "differencesFound": "Regions differing from the supplied original have been localized.",
+      "honestDisclaimer": "Metric Disclaimer: These measured differences show where the suspected image deviates from the reference. Pixel differences alone do not prove malicious intent, AI generation, or criminal tampering; compression artifacts, lighting, and crops also influence metrics."
+    },
+    "saveVault": "Save Comparison Record to Vault",
+    "savedSuccess": "Forensic comparison record saved to Evidence Vault."
+  },
+  "comments": {
+    "title": "Comment Safety Workspace",
+    "subtitle": "Multilingual threat detection, harassment screening, and PII risk mitigation",
+    "inputLabel": "Comment Text to Analyze",
+    "inputPlaceholder": "Paste or enter the comment here (English, Hindi, Marathi, or Romanized)...",
+    "demoIdLabel": "Optional Demo Identifier / Author Handle",
+    "demoIdPlaceholder": "e.g. user_anon_88",
+    "analyzeButton": "Analyze Comment",
+    "clearButton": "Clear",
+    "categoryLabel": "Evaluated Category",
+    "riskLevel": "Assessed Risk Level",
+    "matchedSignals": "Matched Warning Signals & Patterns",
+    "suggestedActions": "Suggested Remediation Actions",
+    "mlStatus": "Classifier Engine",
+    "mlRuleFallback": "Multilingual Rule Engine (Active Baseline)",
+    "mlModelActive": "Trained Text Classifier Active",
+    "repeatedBehaviorTitle": "Recorded Incident History for Identifier",
+    "incidentCount": "Total Recorded Incidents",
+    "trendLabel": "Risk Trend",
+    "saveVault": "Save Incident Record to Vault",
+    "saveCommentTextCheckbox": "Explicitly preserve full comment text in Vault (uncheck to store metadata only for privacy)",
+    "savedSuccess": "Comment incident record preserved in Evidence Vault.",
+    "categories": {
+      "safe": "Safe / Benign",
+      "abusive": "Abusive Language",
+      "harassment": "Harassment / Targeted Bullying",
+      "threat": "Direct Threat of Harm",
+      "sexual": "Sexual / Vulgar Harassment",
+      "pii": "Personal Information Exposure (Doxxing)"
+    },
+    "risks": {
+      "low": "Low Risk",
+      "medium": "Medium Risk",
+      "high": "High Risk",
+      "critical": "Critical Alert"
+    },
+    "actions": {
+      "ignore": "Ignore or mute low-risk interaction",
+      "block": "Block user on the respective platform",
+      "report": "Report to platform safety center using the specific platform reporting tool",
+      "preserve": "Preserve cryptographic evidence record in Vault for documentation",
+      "legal": "Consider immediate formal reporting to cyber safety authorities for severe direct threats"
+    }
+  },
+  "casting": {
+    "title": "Casting Shield Workspace",
+    "subtitle": "Safety review for audition calls, casting instructions, and unsolicited opportunity messages",
+    "inputLabel": "Audition / Opportunity Message",
+    "inputPlaceholder": "Paste the complete message, email, or chat received from the casting contact...",
+    "contextLabel": "Additional Context (Optional)",
+    "contextPlaceholder": "e.g. Received on WhatsApp from an unverified number claiming to be a production house...",
+    "analyzeButton": "Screen Message for Red Flags",
+    "clearButton": "Clear Message",
+    "assessmentTitle": "Safety Assessment",
+    "riskLevel": "Risk Level",
+    "matchedPhrases": "Detected Red Flags & Pressure Indicators",
+    "explanation": "Contextual Analysis",
+    "suggestedActions": "Recommended Safety Actions",
+    "saveIncident": "Save Casting Incident to Vault",
+    "savedSuccess": "Casting incident saved to Evidence Vault.",
+    "futureScopeTitle": "Audition Video & Camera Screening (Future Scope)",
+    "futureScopeNotice": "Future Scope Architecture: Real-time on-camera behavior screening requires explicit multi-party consent frameworks and specialized models. ABHEDYA does not perform covert camera monitoring or unverified video surveillance.",
+    "risks": {
+      "low": "Low Concern / Professional Framing",
+      "medium": "Caution Advised / Ambiguous Terms",
+      "high": "High Risk / Multiple Red Flags Detected",
+      "critical": "Critical Alert / Coercive or Inappropriate Demands",
+      "unclear": "Unclear / Insufficient Context"
+    },
+    "actions": {
+      "pause": "Pause before responding. Do not rush into commitments.",
+      "verify": "Independently verify the production house, casting director, and official registered address.",
+      "consult": "Discuss the opportunity with a trusted mentor, union representative, or family member.",
+      "noFees": "Never transfer upfront registration, audition, or portfolio fees.",
+      "noPrivateContent": "Refuse requests for private, unclothed, or compromising photos/videos.",
+      "publicVenue": "Insist on verified, professional daylight casting venues with an accompanying companion.",
+      "preserve": "Preserve message timestamps and contact identifiers in Evidence Vault."
+    }
+  },
+  "vault": {
+    "title": "Evidence Vault",
+    "subtitle": "Local cryptographic evidence ledger and professional incident report compiler",
+    "recordsTitle": "Saved Safety Records",
+    "emptyState": "No saved records in your local Evidence Vault yet. Process images, screen comments, or evaluate casting calls to preserve verifiable evidence.",
+    "recordTypes": {
+      "watermark": "Photo Watermarking",
+      "comparison": "Photo Comparison",
+      "comments": "Comment Safety",
+      "casting": "Casting Shield",
+      "incident": "Incident Report"
+    },
+    "recordId": "Record ID",
+    "timestamp": "Recorded At",
+    "details": "View Details",
+    "delete": "Delete",
+    "clearAll": "Clear All Evidence",
+    "clearConfirm": "Are you sure you want to permanently delete all local evidence records? This action cannot be undone.",
+    "deletedSuccess": "Record permanently deleted from local storage.",
+    "clearedSuccess": "All records purged from local storage.",
+    "createReportTab": "File & Export Incident Report",
+    "reportForm": {
+      "title": "Compile Professional Incident Report",
+      "platform": "Platform Involved",
+      "platforms": {
+        "instagram": "Instagram",
+        "youtube": "YouTube",
+        "whatsapp": "WhatsApp",
+        "facebook": "Facebook",
+        "x": "X (Twitter)",
+        "email": "Email",
+        "other": "Other Platform"
+      },
+      "incidentType": "Incident Classification",
+      "incidentTypes": {
+        "harassment": "Targeted Harassment",
+        "threat": "Direct Threat / Extortion",
+        "imageMisuse": "Image Misuse / Suspected Morphing",
+        "castingCoercion": "Casting Coercion / Exploitation Attempt",
+        "piiExposure": "Personal Information Exposure (Doxxing)",
+        "other": "Other Safety Violation"
+      },
+      "dateTime": "Date and Time of Occurrence",
+      "description": "Comprehensive Situation Description",
+      "descriptionPlaceholder": "Explain the entire situation in your own words, including background, timeline, perpetrator handles, and impact...",
+      "notes": "Additional Notes / Legal Case Reference (Optional)",
+      "notesPlaceholder": "e.g. Police complaint number, legal counsel details, or platform report ticket...",
+      "attachEvidence": "Attach Preserved Vault Records to this Report",
+      "downloadPdf": "Generate & Download Official PDF Report",
+      "generatingPdf": "Compiling Cryptographic Incident PDF...",
+      "validationError": "Please provide the incident platform, classification, occurrence date, and situation description."
+    },
+    "pdf": {
+      "confidential": "CONFIDENTIAL DIGITAL SAFETY INCIDENT REPORT",
+      "generatedBy": "Generated via ABHEDYA Evidence Vault",
+      "caseReference": "Incident ID",
+      "generatedAt": "Report Generated",
+      "incidentDetails": "Incident Overview",
+      "statement": "Creator Situation Statement",
+      "evidenceSection": "Attached Verifiable Technical Evidence",
+      "safetyScoreSection": "Creator Safety Score Indicator at Incident Time",
+      "nextSteps": "Recommended Next Steps",
+      "disclaimerTitle": "Advisory & Legal Disclaimer",
+      "disclaimerText": "This report compiles user-submitted statements and verifiable client-side cryptographic hashes and algorithmic measurements recorded in ABHEDYA. It is designed to assist law enforcement, legal counsel, and platform safety teams in reviewing incidents. ABHEDYA does not independently verify physical identities or provide formal judicial certification."
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "close": "Close",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "copy": "Copy",
+    "copied": "Copied to clipboard"
+  }
+}
