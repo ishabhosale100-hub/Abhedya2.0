@@ -9,12 +9,22 @@ router = APIRouter(prefix="/api/casting", tags=["Casting Shield"])
 
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "..", "ml", "casting_classifier.joblib")
 
+# Load model once at startup (Singleton pattern) to prevent per-request disk overhead
+_casting_model = None
+def get_casting_model():
+    global _casting_model
+    if _casting_model is None and os.path.exists(MODEL_PATH):
+        try:
+            _casting_model = joblib.load(MODEL_PATH)
+        except Exception as e:
+            print(f"Warning: Could not load casting classifier model: {e}")
+    return _casting_model
+
 class CastingAnalysisRequest(BaseModel):
     message: str
     context: Optional[str] = None
     author_contact: Optional[str] = None
 
-# Red flag category patterns
 RED_FLAG_PATTERNS = {
     "private_media": [
         r"\b(?:bikini|lingerie|underwear|unclothed|semi-nude|topless|bare|private photos|private clip|compromise|body video|send pictures in bed)\b",
@@ -46,7 +56,6 @@ def analyze_casting_rules(message: str, context: Optional[str] = "") -> Dict[str
     trimmed = message.strip()
     words = trimmed.split()
 
-    # Ambiguity check for extremely short or context-less messages
     if len(words) < 4:
         return {
             "risk_level": "unclear",
@@ -68,7 +77,6 @@ def analyze_casting_rules(message: str, context: Optional[str] = "") -> Dict[str
                     "phrase": m.group(0)
                 })
 
-    # Evaluate Risk Level & Explanations
     categories_found = set(f["category"] for f in matched_flags)
     explanation_parts = []
     actions = ["pause", "verify", "consult"]
@@ -97,7 +105,6 @@ def analyze_casting_rules(message: str, context: Optional[str] = "") -> Dict[str
         else:
             explanation_parts.append(f"Caution: Warning signal detected regarding {cat.replace('_', ' ')}.")
     else:
-        # Check if it has typical professional audition tokens
         prof_tokens = ["audition", "script", "venue", "casting", "monologue", "character", "rehearsal", "director"]
         has_prof = any(t in combined_text for t in prof_tokens)
         if has_prof:
@@ -118,15 +125,14 @@ def analyze_casting_rules(message: str, context: Optional[str] = "") -> Dict[str
 async def analyze_message(payload: CastingAnalysisRequest):
     result = analyze_casting_rules(payload.message, payload.context)
 
-    # Check ML classifier fallback / integration
     ml_status = "Rules-Only Fallback (Active)"
-    if os.path.exists(MODEL_PATH):
+    model = get_casting_model()
+    if model is not None:
         try:
-            model = joblib.load(MODEL_PATH)
             pred = model.predict([payload.message])[0]
-            ml_status = f"Trained Model Active (Prediction: {pred})"
-        except Exception:
-            pass
+            ml_status = f"Trained Model Prediction: {pred}"
+        except Exception as e:
+            ml_status = f"Model Inference Error: {str(e)}"
 
     return {
         **result,

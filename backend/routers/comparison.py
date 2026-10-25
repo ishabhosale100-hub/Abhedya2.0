@@ -11,8 +11,8 @@ from skimage.metrics import structural_similarity as ssim
 
 router = APIRouter(prefix="/api/comparison", tags=["Photo Comparison"])
 
-MAX_FILE_SIZE = 10 * 1024 * 1024 # 10 MB
-ALLOWED_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"]
+MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
+ALLOWED_MIME_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"]
 
 def calculate_hash(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
@@ -29,6 +29,12 @@ async def analyze_comparison(
     original: UploadFile = File(...),
     suspected: UploadFile = File(...)
 ) -> Dict[str, Any]:
+    # Validate MIME types if provided
+    if original.content_type and original.content_type not in ALLOWED_MIME_TYPES:
+        raise HTTPException(status_code=400, detail=f"Unsupported format for original image: {original.content_type}")
+    if suspected.content_type and suspected.content_type not in ALLOWED_MIME_TYPES:
+        raise HTTPException(status_code=400, detail=f"Unsupported format for suspected image: {suspected.content_type}")
+
     # 1. Read files into memory
     orig_bytes = await original.read()
     susp_bytes = await suspected.read()
@@ -75,7 +81,6 @@ async def analyze_comparison(
         }
 
     # Normalize dimensions for fair pixel-wise comparison
-    # Match the suspected image dimensions or use max dimension normalized up to 1024
     target_w = max(min(susp_w, 1200), 256)
     target_h = max(min(susp_h, 1200), 256)
 
@@ -100,13 +105,11 @@ async def analyze_comparison(
     pixel_diff_percent = round((changed_pixels / total_pixels) * 100.0, 2)
 
     # 3. Difference Heatmap
-    # Normalize grayscale difference to 0-255
     norm_diff = cv2.normalize(diff_gray, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
     heatmap = cv2.applyColorMap(norm_diff, cv2.COLORMAP_JET)
 
     # 4. Threshold mask & Contours with Bounding Boxes
     _, thresh_mask = cv2.threshold(diff_gray, 30, 255, cv2.THRESH_BINARY)
-    # Morphological cleanup
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
     thresh_clean = cv2.morphologyEx(thresh_mask, cv2.MORPH_CLOSE, kernel)
 
@@ -117,7 +120,7 @@ async def analyze_comparison(
 
     # 5. Red Overlay on Suspected Image
     overlay_img = img_susp_norm.copy()
-    red_color = (0, 0, 255) # BGR Red
+    red_color = (0, 0, 255)  # BGR Red
 
     # Apply red tint where threshold > 0
     mask_indices = thresh_clean > 0
